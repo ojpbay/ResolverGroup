@@ -1,11 +1,14 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace ResolverGroupWebApp.Models
 {
     public partial class ResolverToolContext : DbContext
     {
+        private readonly IConfiguration configuration;
+
         public ResolverToolContext()
         {
         }
@@ -20,15 +23,6 @@ namespace ResolverGroupWebApp.Models
         public virtual DbSet<Contact> Contact { get; set; }
         public virtual DbSet<Resolver> Resolver { get; set; }
         public virtual DbSet<ResolverGroup> ResolverGroup { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=.;Database=ResolverTool;Trusted_Connection=True;");
-            }
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
