@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,7 +30,8 @@ import { SearchModule } from './search/search.module';
     MatPaginatorModule,
     MatTableModule,
     LayoutModule,
-    SearchModule
+    SearchModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
