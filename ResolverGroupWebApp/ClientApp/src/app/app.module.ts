@@ -11,6 +11,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import { AppComponent } from './app.component';
     MatDialogModule,
     MatSortModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
