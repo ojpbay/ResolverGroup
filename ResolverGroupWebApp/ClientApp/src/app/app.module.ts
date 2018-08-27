@@ -12,6 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
+import { SearchModule } from './search/search.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,7 +27,8 @@ import { LayoutModule } from './layout/layout.module';
     MatSortModule,
     MatPaginatorModule,
     MatTableModule,
-    LayoutModule
+    LayoutModule,
+    SearchModule
   ],
   providers: [],
   bootstrap: [AppComponent]
