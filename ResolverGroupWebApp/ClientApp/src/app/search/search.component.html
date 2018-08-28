@@ -3,3 +3,17 @@
     <mat-button-toggle value="italic">Italic</mat-button-toggle>
     <mat-button-toggle value="underline">Underline</mat-button-toggle>
 </mat-button-toggle-group>
+
+<table matSort (matSortChange)="sortData($event)" class="table table-hover">
+  <thead class="thead-light">
+    <tr>
+      <th mat-sort-header="id">Id</th>
+      <th mat-sort-header="resolverDescription">Description</th>
+    </tr>
+  </thead>
+
+  <tr *ngFor="let resolverGroup of resolverGroups | async">
+    <td>{{resolverGroup.id}}</td>
+    <td>{{resolverGroup.resolverDescription}}</td>
+  </tr>
+</table>

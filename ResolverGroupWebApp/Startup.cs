@@ -61,15 +61,15 @@ namespace ResolverGroupWebApp
 
                 spa.Options.SourcePath = "ClientApp";
 
+                //if (env.IsDevelopment())
+                //{
+                //    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                //}
+
                 if (env.IsDevelopment())
                 {
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:4200");
+                    spa.UseAngularCliServer(npmScript: "start");
                 }
-
-                // if (env.IsDevelopment())
-                // {
-                //     spa.UseAngularCliServer(npmScript: "start");
-                // }
             });
         }
     }
