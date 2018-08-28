@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ResolverGroupWebApp.Models;
+using ResolverGroupWebApp.ViewModels;
 
 namespace ResolverGroupWebApp.Controllers
 {
@@ -22,9 +23,14 @@ namespace ResolverGroupWebApp.Controllers
 
         // GET: api/Resolver
         [HttpGet]
-        public IEnumerable<Resolver> GetResolver()
+        public IEnumerable<ResolverViewModel> GetResolver()
         {
-            return _context.Resolver;
+            return _context.Resolver.Include(rg => rg.Contact).Include(rg => rg.ResolverGroup).Select(x => new ResolverViewModel {
+                Id = x.Id,
+                ResolverDescription = x.ResolverDescription,
+                ContactName = x.Contact.ContactName,
+                ResolverGroupName = x.ResolverGroup.ResolverGroupName
+            });
         }
 
         // GET: api/Resolver/5
@@ -44,82 +50,6 @@ namespace ResolverGroupWebApp.Controllers
             }
 
             return Ok(resolver);
-        }
-
-        // PUT: api/Resolver/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutResolver([FromRoute] int id, [FromBody] Resolver resolver)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != resolver.Id)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(resolver).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ResolverExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/Resolver
-        [HttpPost]
-        public async Task<IActionResult> PostResolver([FromBody] Resolver resolver)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            _context.Resolver.Add(resolver);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetResolver", new { id = resolver.Id }, resolver);
-        }
-
-        // DELETE: api/Resolver/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteResolver([FromRoute] int id)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var resolver = await _context.Resolver.FindAsync(id);
-            if (resolver == null)
-            {
-                return NotFound();
-            }
-
-            _context.Resolver.Remove(resolver);
-            await _context.SaveChangesAsync();
-
-            return Ok(resolver);
-        }
-
-        private bool ResolverExists(int id)
-        {
-            return _context.Resolver.Any(e => e.Id == id);
-        }
+        }        
     }
 }

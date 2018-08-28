@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ResolverGroupService } from './resolver-group.service';
 import { Sort } from '@angular/material';
+import { IResolverGroup } from './model';
 
 @Component({
   selector: 'app-search',
@@ -9,14 +10,16 @@ import { Sort } from '@angular/material';
 })
 export class SearchComponent implements OnInit {
   resolverGroups: any;
-  sortedData: any[];
+  sortedData: Array<IResolverGroup>;
   constructor(private resolverSearch: ResolverGroupService) {
     this.sortedData = [];
   }
 
   ngOnInit() {
     this.resolverGroups = this.resolverSearch.get();
-    this.sortedData = this.resolverGroups.slice();
+    //if (this.resolverGroups) {
+    //  this.sortedData = this.resolverGroups.slice();
+    //}
   }
 
   sortData(sort: Sort) {

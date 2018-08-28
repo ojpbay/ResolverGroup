@@ -11,6 +11,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { MatFormFieldModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
@@ -29,6 +30,7 @@ import { SearchModule } from './search/search.module';
     MatSortModule,
     MatPaginatorModule,
     MatTableModule,
+    MatFormFieldModule,
     LayoutModule,
     SearchModule,
     HttpClientModule
