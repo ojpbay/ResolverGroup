@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SearchComponent } from './search.component';
 import { MatButtonToggleModule, MatInputModule } from '@angular/material';
 import { MatFormFieldModule } from '@angular/material';
-import { ResolverGroupService } from './resolver-group.service';
 
 @NgModule({
   imports: [CommonModule, MatButtonToggleModule, MatFormFieldModule, MatInputModule],

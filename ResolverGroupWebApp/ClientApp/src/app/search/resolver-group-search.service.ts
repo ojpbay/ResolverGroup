@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class ResolverGroupService {
+export class ResolverGroupSearchService {
   constructor(private httpClient: HttpClient) {}
 
   get() {

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ResolverGroupService } from './resolver-group.service';
+import { ResolverGroupSearchService } from './resolver-group-search.service';
+import { ApplicationSearchService } from './application-search.service';
 import { Sort } from '@angular/material';
 import { IResolverGroup } from './model';
 
@@ -10,16 +11,24 @@ import { IResolverGroup } from './model';
 })
 export class SearchComponent implements OnInit {
   resolverGroups: any;
+  applications: any;
   sortedData: Array<IResolverGroup>;
-  constructor(private resolverSearch: ResolverGroupService) {
+  displayResolver: boolean;
+  displayApplication: boolean;
+
+  constructor(
+    private resolverSearch: ResolverGroupSearchService,
+    private applicationSearch: ApplicationSearchService
+  ) {
     this.sortedData = [];
   }
 
   ngOnInit() {
     this.resolverGroups = this.resolverSearch.get();
-    //if (this.resolverGroups) {
-    //  this.sortedData = this.resolverGroups.slice();
-    //}
+    this.applications = this.applicationSearch.get();
+
+    this.displayResolver = true;
+    this.displayApplication = false;
   }
 
   sortData(sort: Sort) {
@@ -40,6 +49,26 @@ export class SearchComponent implements OnInit {
           return 0;
       }
     });
+  }
+
+  showResolver() {
+    this.showGrid(1);
+  }
+
+  showApplication() {
+    this.showGrid(2);
+  }
+
+  private showGrid(gridType: number) {
+    if (gridType === 1) {
+      this.displayResolver = true;
+      this.displayApplication = false;
+    }
+
+    if (gridType === 2) {
+      this.displayResolver = false;
+      this.displayApplication = true;
+    }
   }
 }
 

@@ -5,8 +5,8 @@
     <form class="search-form">
       <div class="form-group">
         <mat-button-toggle-group name="searchType" aria-label="Search Type">
-          <mat-button-toggle value="1">Resolver</mat-button-toggle>
-          <mat-button-toggle value="2">Application</mat-button-toggle>
+          <mat-button-toggle value="1" (change)="showResolver()">Resolver</mat-button-toggle>
+          <mat-button-toggle value="2" (change)="showApplication()">Application</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
 
@@ -22,8 +22,8 @@
 <div class="row">
   <div class="col">
 
-    <div class="table-wrapper-scroll-y">
-      <table class="results" matSort (matSortChange)="sortData($event)" class="table table-hover">
+    <div class="table-wrapper-scroll-y" *ngIf="displayResolver">
+      <table class="results table table-hover" matSort (matSortChange)="sortData($event)">
         <thead class="thead-light">
           <tr>
             <th mat-sort-header="resolverDescription">Description</th>
@@ -39,5 +39,25 @@
         </tr>
       </table>
     </div>
+    
+    <div class="table-wrapper-scroll-y" *ngIf="displayApplication">
+      <table class="results table table-hover" matSort (matSortChange)="sortData($event)">
+        <thead class="thead-light">
+          <tr>
+            <th mat-sort-header="appDescription">Description</th>
+            <th mat-sort-header="appName">Application</th>
+            <th mat-sort-header="contactName">Contact</th>
+            <th mat-sort-header="resolverGroupName">Resolver Group</th>
+          </tr>
+        </thead>
+
+        <tr *ngFor="let app of applications | async">
+          <td>{{app.appDescription}}</td>
+          <td>{{app.appName}}</td>
+          <td>{{app.contactName}}</td>
+          <td>{{app.resolverGroupName}}</td>
+        </tr>
+      </table>
     </div>
+  </div>
   </div>
