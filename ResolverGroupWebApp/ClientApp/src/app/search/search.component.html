@@ -14,7 +14,7 @@
         <label for="buttonGroup">Search query</label>
         <div>
           <mat-form-field>
-            <input matInput placeholder="Search" id="searchText">
+            <input matInput placeholder="Search" id="searchText" (input)="onSearchChange($event.target.value)">
           </mat-form-field>
         </div>
       </div>

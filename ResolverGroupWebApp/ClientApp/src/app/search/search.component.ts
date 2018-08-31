@@ -59,6 +59,20 @@ export class SearchComponent implements OnInit {
     this.showGrid(2);
   }
 
+  onSearchChange(searchValue: string) {
+    if (this.displayResolver) {
+
+      var results = this.resolverGroups;
+
+      // todo query and filter contact name also
+      const filteredResults = results.filter(grp => grp.resolverGroupName.includes(searchValue) || grp.resolverDescription.includes(searchValue) );
+
+      console.log(filteredResults);
+    } else if (this.displayApplication) {
+      // todo
+    }
+  }
+
   private showGrid(gridType: number) {
     if (gridType === 1) {
       this.displayResolver = true;
