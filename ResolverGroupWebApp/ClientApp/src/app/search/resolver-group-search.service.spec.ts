@@ -1,16 +1,16 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { ResolverGroupService } from './resolver-group.service';
+import { ResolverGroupSearchService } from './resolver-group-search.service';
 
 describe('Service: ResolverGroup', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [ResolverGroupService]
+      providers: [ResolverGroupSearchService]
     });
   });
 
-  it('should ...', inject([ResolverGroupService], (service: ResolverGroupService) => {
+  it('should ...', inject([ResolverGroupSearchService], (service: ResolverGroupSearchService) => {
     expect(service).toBeTruthy();
   }));
 });
