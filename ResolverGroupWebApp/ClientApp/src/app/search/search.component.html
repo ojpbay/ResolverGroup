@@ -4,18 +4,22 @@
   <div class="col">
     <form class="search-form">
       <div class="form-group">
-        <mat-button-toggle-group name="searchType" aria-label="Search Type">
+        <mat-button-toggle-group name="searchType" aria-label="Search Type" id="buttonGroup">
           <mat-button-toggle value="1" (change)="showResolver()">Resolver</mat-button-toggle>
           <mat-button-toggle value="2" (change)="showApplication()">Application</mat-button-toggle>
         </mat-button-toggle-group>
       </div>
 
       <div class="form-group">
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Search" class="form-control">
-        </mat-form-field>
+        <label for="buttonGroup">Search query</label>
+        <div>
+          <mat-form-field>
+            <input matInput placeholder="Search" id="searchText">
+          </mat-form-field>
+        </div>
       </div>
 
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
   </div>
 </div>
