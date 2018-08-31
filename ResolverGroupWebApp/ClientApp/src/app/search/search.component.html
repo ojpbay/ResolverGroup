@@ -26,16 +26,16 @@
       <table class="results table table-hover" matSort (matSortChange)="sortData($event)">
         <thead class="thead-light">
           <tr>
+            <th mat-sort-header="resolverGroupName">Resolver Group</th>
             <th mat-sort-header="resolverDescription">Description</th>
             <th mat-sort-header="contactName">Contact</th>
-            <th mat-sort-header="resolverGroupName">Resolver Group</th>
           </tr>
         </thead>
 
         <tr *ngFor="let resolverGroup of resolverGroups | async">
+          <td>{{resolverGroup.resolverGroupName}}</td>
           <td>{{resolverGroup.resolverDescription}}</td>
           <td>{{resolverGroup.contactName}}</td>
-          <td>{{resolverGroup.resolverGroupName}}</td>
         </tr>
       </table>
     </div>
@@ -44,18 +44,18 @@
       <table class="results table table-hover" matSort (matSortChange)="sortData($event)">
         <thead class="thead-light">
           <tr>
+            <th mat-sort-header="resolverGroupName">Resolver Group</th>
             <th mat-sort-header="appDescription">Description</th>
             <th mat-sort-header="appName">Application</th>
             <th mat-sort-header="contactName">Contact</th>
-            <th mat-sort-header="resolverGroupName">Resolver Group</th>
           </tr>
         </thead>
 
         <tr *ngFor="let app of applications | async">
+          <td>{{app.resolverGroupName}}</td>
           <td>{{app.appDescription}}</td>
           <td>{{app.appName}}</td>
           <td>{{app.contactName}}</td>
-          <td>{{app.resolverGroupName}}</td>
         </tr>
       </table>
     </div>
