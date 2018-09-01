@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+import { IApplication } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +10,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ApplicationSearchService {
   constructor(private httpClient: HttpClient) {}
 
-  get() {
-    return this.httpClient.get('api/app');
+  get(): Observable<IApplication[]> {
+    return this.httpClient.get<IApplication[]>('api/app');
   }
 }

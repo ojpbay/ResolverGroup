@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ResolverGroupSearchService } from './resolver-group-search.service';
 import { ApplicationSearchService } from './application-search.service';
 import { Sort } from '@angular/material';
-import { IResolverGroup } from './model';
+import { IResolverGroup, IApplication } from './model';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -13,8 +13,8 @@ import { filter, map } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
   resolverGroups: Observable<IResolverGroup[]>;
-  filteredResults: Observable<IResolverGroup[]>;
-  applications: any;
+  filteredResults: Observable<any[]>;
+  applications: Observable<IApplication[]>;
   sortedData: Array<IResolverGroup>;
   displayResolver: boolean;
   displayApplication: boolean;
@@ -28,10 +28,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.resolverGroups = this.resolverSearch.get();    
-    this.filteredResults = this.resolverGroups;
-
-    this.filteredResults.subscribe(x => console.log(x));
-
+    this.filteredResults = this.resolverGroups;    
     this.applications = this.applicationSearch.get();
 
     this.displayResolver = true;
@@ -60,10 +57,12 @@ export class SearchComponent implements OnInit {
 
   showResolver() {
     this.showGrid(1);
+    this.filteredResults = this.resolverGroups;
   }
 
   showApplication() {
     this.showGrid(2);
+    this.filteredResults = this.applications;
   }
 
   onSearchChange(searchValue: string) {
@@ -81,7 +80,15 @@ export class SearchComponent implements OnInit {
 
 
     } else if (this.displayApplication) {
-      // todo
+      this.filteredResults = this.applications.pipe(
+        map(results =>
+          results.filter(app => (app.resolverGroupName && app.resolverGroupName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+            || (app.appDescription && app.appDescription.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+            || (app.appName && app.appName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+            || (app.contactName && app.contactName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+          )
+        )
+      );
     }
   }
 

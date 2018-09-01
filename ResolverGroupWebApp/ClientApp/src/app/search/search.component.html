@@ -21,7 +21,9 @@
 </div>
 <div class="row">
   <div class="col">
-    
+
+    {{(filteredResults | async).length}} results found
+
     <table class="results table table-hover" matSort (matSortChange)="sortData($event)" *ngIf="displayResolver">
       <thead class="thead-light">
         <tr>
@@ -39,7 +41,7 @@
         </tr>
       </tbody>
     </table>
-    
+
     <table class="results table table-hover" matSort (matSortChange)="sortData($event)" *ngIf="displayApplication">
       <thead class="thead-light">
         <tr>

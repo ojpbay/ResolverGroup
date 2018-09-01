@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { IResolverGroup } from './model';
 import { Observable } from 'rxjs';
+
+import { IResolverGroup } from './model';
 
 @Injectable({
   providedIn: 'root'
