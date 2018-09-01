@@ -26,7 +26,6 @@ namespace ResolverGroupWebApp.Controllers
         public IEnumerable<ResolverViewModel> GetResolver()
         {
             return _context.Resolver.Include(rg => rg.Contact).Include(rg => rg.ResolverGroup).Select(x => new ResolverViewModel {
-                Id = x.Id,
                 ResolverDescription = x.ResolverDescription,
                 ContactName = x.Contact.ContactName,
                 ResolverGroupName = x.ResolverGroup.ResolverGroupName

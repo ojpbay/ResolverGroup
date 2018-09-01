@@ -10,5 +10,8 @@ namespace ResolverGroupWebApp.Models
         public int? ResolverGroupId { get; set; }
         public string AppDescription { get; set; }
         public int? ContactId { get; set; }
+
+        public Contact Contact { get; set; }
+        public ResolverGroup ResolverGroup { get; set; }
     }
 }

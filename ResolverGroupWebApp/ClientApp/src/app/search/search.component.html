@@ -1,62 +1,63 @@
 
 
-<div class="row">
-  <div class="col">
-    <div class="form-group">
-      <mat-button-toggle-group name="searchType" aria-label="Search Type" id="buttonGroup">
-        <mat-button-toggle value="1" (change)="showResolver()">Resolver</mat-button-toggle>
-        <mat-button-toggle value="2" (change)="showApplication()">Application</mat-button-toggle>
-      </mat-button-toggle-group>
-    </div>
+<div class="form-group row">
+  <label for="buttonGroup" class="col-2 col-form-label">Type of search</label>
+  <div class="col-10">
+    <mat-button-toggle-group name="searchType" aria-label="Search Type" id="buttonGroup">
+      <mat-button-toggle value="1" (change)="showResolver()">Resolver</mat-button-toggle>
+      <mat-button-toggle value="2" (change)="showApplication()">Application</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+</div>
 
-    <div class="form-group">
-      <label for="buttonGroup">Search query</label>
-      <div>
-        <mat-form-field>
-          <input matInput placeholder="Search" id="searchText" (input)="onSearchChange($event.target.value)">
-        </mat-form-field>
-      </div>
+<div class="form-group row">
+  <label for="buttonGroup" class="col-2 col-form-label">Search query</label>
+  <div>
+    <div class="col-10">
+      <mat-form-field>
+        <input matInput type="search" placeholder="Search" id="searchText" (input)="onSearchChange($event.target.value)">
+      </mat-form-field>
     </div>
   </div>
 </div>
 <div class="row">
   <div class="col">
 
-    {{(filteredResults | async).length}} results found
+    {{(filteredResults | async)?.length}} results found
 
     <table class="results table table-hover" matSort (matSortChange)="sortData($event)" *ngIf="displayResolver">
       <thead class="thead-light">
-        <tr>
-          <th mat-sort-header="resolverGroupName">Resolver Group</th>
-          <th mat-sort-header="resolverDescription">Description</th>
-          <th mat-sort-header="contactName">Contact</th>
+        <tr class="d-flex">
+          <th class="col-3" mat-sort-header="resolverGroupName">Resolver Group</th>
+          <th class="col-7" mat-sort-header="resolverDescription">Description</th>
+          <th class="col-2" mat-sort-header="contactName">Contact</th>
         </tr>
       </thead>
 
       <tbody>
-        <tr *ngFor="let resolverGroup of filteredResults | async">
-          <td>{{resolverGroup.resolverGroupName}}</td>
-          <td>{{resolverGroup.resolverDescription}}</td>
-          <td>{{resolverGroup.contactName}}</td>
+        <tr class="d-flex" *ngFor="let resolverGroup of filteredResults | async">
+          <td class="col-3">{{resolverGroup.resolverGroupName}}</td>
+          <td class="col-7">{{resolverGroup.resolverDescription}}</td>
+          <td class="col-2">{{resolverGroup.contactName}}</td>
         </tr>
       </tbody>
     </table>
 
     <table class="results table table-hover" matSort (matSortChange)="sortData($event)" *ngIf="displayApplication">
       <thead class="thead-light">
-        <tr>
-          <th mat-sort-header="resolverGroupName">Resolver Group</th>
-          <th mat-sort-header="appDescription">Description</th>
-          <th mat-sort-header="appName">Application</th>
-          <th mat-sort-header="contactName">Contact</th>
+        <tr class="d-flex">
+          <th class="col-2" mat-sort-header="resolverGroupName">Resolver Group</th>
+          <th class="col-6" mat-sort-header="appDescription">Description</th>
+          <th class="col-2" mat-sort-header="appName">Application</th>
+          <th class="col-2" mat-sort-header="contactName">Contact</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let app of applications | async">
-          <td>{{app.resolverGroupName}}</td>
-          <td>{{app.appDescription}}</td>
-          <td>{{app.appName}}</td>
-          <td>{{app.contactName}}</td>
+        <tr class="d-flex" *ngFor="let app of filteredResults | async">
+          <td class="col-2">{{app.resolverGroupName}}</td>
+          <td class="col-6">{{app.appDescription}}</td>
+          <td class="col-2">{{app.appName}}</td>
+          <td class="col-2">{{app.contactName}}</td>
         </tr>
       </tbody>
     </table>
