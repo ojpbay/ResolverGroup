@@ -3,6 +3,8 @@ import { ResolverGroupSearchService } from './resolver-group-search.service';
 import { ApplicationSearchService } from './application-search.service';
 import { Sort } from '@angular/material';
 import { IResolverGroup } from './model';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search',
@@ -10,7 +12,8 @@ import { IResolverGroup } from './model';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  resolverGroups: any;
+  resolverGroups: Observable<IResolverGroup[]>;
+  filteredResults: Observable<IResolverGroup[]>;
   applications: any;
   sortedData: Array<IResolverGroup>;
   displayResolver: boolean;
@@ -24,7 +27,11 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resolverGroups = this.resolverSearch.get();
+    this.resolverGroups = this.resolverSearch.get();    
+    this.filteredResults = this.resolverGroups;
+
+    this.filteredResults.subscribe(x => console.log(x));
+
     this.applications = this.applicationSearch.get();
 
     this.displayResolver = true;
@@ -32,23 +39,23 @@ export class SearchComponent implements OnInit {
   }
 
   sortData(sort: Sort) {
-    const data = this.resolverGroups.slice();
-    if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
-      return;
-    }
+    //const data = this.resolverGroups.slice();
+    //if (!sort.active || sort.direction === '') {
+    //  this.sortedData = data;
+    //  return;
+    //}
 
-    this.sortedData = data.sort((a, b) => {
-      const isAsc = sort.direction === 'asc';
-      switch (sort.active) {
-        case 'id':
-          return compare(a.id, b.id, isAsc);
-        case 'resolverDescription':
-          return compare(a.resolverDescription, b.resolverDescription, isAsc);
-        default:
-          return 0;
-      }
-    });
+    //this.sortedData = data.sort((a, b) => {
+    //  const isAsc = sort.direction === 'asc';
+    //  switch (sort.active) {
+    //    case 'id':
+    //      return compare(a.id, b.id, isAsc);
+    //    case 'resolverDescription':
+    //      return compare(a.resolverDescription, b.resolverDescription, isAsc);
+    //    default:
+    //      return 0;
+    //  }
+    //});
   }
 
   showResolver() {
@@ -60,14 +67,19 @@ export class SearchComponent implements OnInit {
   }
 
   onSearchChange(searchValue: string) {
+
     if (this.displayResolver) {
+      
+      this.filteredResults = this.resolverGroups.pipe(
+        map(results =>
+          results.filter(grp => (grp.resolverGroupName && grp.resolverGroupName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+            || (grp.resolverDescription && grp.resolverDescription.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+            || (grp.contactName && grp.contactName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+          )
+        )
+      );
 
-      var results = this.resolverGroups;
 
-      // todo query and filter contact name also
-      const filteredResults = results.filter(grp => grp.resolverGroupName.includes(searchValue) || grp.resolverDescription.includes(searchValue) );
-
-      console.log(filteredResults);
     } else if (this.displayApplication) {
       // todo
     }

@@ -2,30 +2,26 @@
 
 <div class="row">
   <div class="col">
-    <form class="search-form">
-      <div class="form-group">
-        <mat-button-toggle-group name="searchType" aria-label="Search Type" id="buttonGroup">
-          <mat-button-toggle value="1" (change)="showResolver()">Resolver</mat-button-toggle>
-          <mat-button-toggle value="2" (change)="showApplication()">Application</mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
+    <div class="form-group">
+      <mat-button-toggle-group name="searchType" aria-label="Search Type" id="buttonGroup">
+        <mat-button-toggle value="1" (change)="showResolver()">Resolver</mat-button-toggle>
+        <mat-button-toggle value="2" (change)="showApplication()">Application</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
 
-      <div class="form-group">
-        <label for="buttonGroup">Search query</label>
-        <div>
-          <mat-form-field>
-            <input matInput placeholder="Search" id="searchText" (input)="onSearchChange($event.target.value)">
-          </mat-form-field>
-        </div>
+    <div class="form-group">
+      <label for="buttonGroup">Search query</label>
+      <div>
+        <mat-form-field>
+          <input matInput placeholder="Search" id="searchText" (input)="onSearchChange($event.target.value)">
+        </mat-form-field>
       </div>
-
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+    </div>
   </div>
 </div>
 <div class="row">
   <div class="col">
-
+    
     <table class="results table table-hover" matSort (matSortChange)="sortData($event)" *ngIf="displayResolver">
       <thead class="thead-light">
         <tr>
@@ -36,7 +32,7 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let resolverGroup of resolverGroups | async">
+        <tr *ngFor="let resolverGroup of filteredResults | async">
           <td>{{resolverGroup.resolverGroupName}}</td>
           <td>{{resolverGroup.resolverDescription}}</td>
           <td>{{resolverGroup.contactName}}</td>

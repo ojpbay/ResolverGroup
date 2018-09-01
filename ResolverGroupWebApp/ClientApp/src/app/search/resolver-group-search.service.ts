@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { IResolverGroup } from './model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class ResolverGroupSearchService {
   constructor(private httpClient: HttpClient) {}
 
-  get() {
-    return this.httpClient.get('api/resolver');
+  get(): Observable<IResolverGroup[]> {
+    return this.httpClient.get<IResolverGroup[]>('api/resolver');
   }
 }
