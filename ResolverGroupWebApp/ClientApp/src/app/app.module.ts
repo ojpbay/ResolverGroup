@@ -11,17 +11,19 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
-import { MatFormFieldModule } from '@angular/material';
+import { MatFormFieldModule, MatChipsModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { SearchModule } from './search/search.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    FormsModule,
     MatToolbarModule,
     MatInputModule,
     MatSelectModule,
@@ -31,6 +33,7 @@ import { SearchModule } from './search/search.module';
     MatPaginatorModule,
     MatTableModule,
     MatFormFieldModule,
+    MatChipsModule,
     LayoutModule,
     SearchModule,
     HttpClientModule
