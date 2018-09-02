@@ -23,7 +23,7 @@
 <div class="row">
   <div class="col">
 
-    {{(filteredResults | async)?.length}} results found
+    <span *ngIf="(filteredResults | async)"><span class="bold">{{(filteredResults | async).length}}</span> results found</span>
 
     <table class="results table table-hover" matSort (matSortChange)="sortData($event)" *ngIf="displayResolver">
       <thead class="thead-light">
