@@ -27,62 +27,83 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.resolverGroups = this.resolverSearch.get();    
-    this.filteredResults = this.resolverGroups;    
+    this.resolverGroups = this.resolverSearch.get();
+    this.filteredResults = this.resolverGroups;
     this.applications = this.applicationSearch.get();
 
     this.displayResolver = true;
   }
 
   sortData(sort: Sort) {
-    //const data = this.resolverGroups.slice();
-    //if (!sort.active || sort.direction === '') {
-    //  this.sortedData = data;
-    //  return;
-    //}
-
-    //this.sortedData = data.sort((a, b) => {
-    //  const isAsc = sort.direction === 'asc';
-    //  switch (sort.active) {
-    //    case 'id':
-    //      return compare(a.id, b.id, isAsc);
-    //    case 'resolverDescription':
-    //      return compare(a.resolverDescription, b.resolverDescription, isAsc);
-    //    default:
-    //      return 0;
-    //  }
-    //});
+    // // const data = this.resolverGroups.slice();
+    // // if (!sort.active || sort.direction === '') {
+    // //  this.sortedData = data;
+    // //  return;
+    // // }
+    // // this.sortedData = data.sort((a, b) => {
+    // //  const isAsc = sort.direction === 'asc';
+    // //  switch (sort.active) {
+    // //    case 'id':
+    // //      return compare(a.id, b.id, isAsc);
+    // //    case 'resolverDescription':
+    // //      return compare(a.resolverDescription, b.resolverDescription, isAsc);
+    // //    default:
+    // //      return 0;
+    // //  }
+    // // });
   }
 
   showResolver() {
     this.showGrid(1);
-    this.onSearchChange(this.searchText);
+    this.onSearchChange(this.searchText || '');
   }
 
   showApplication() {
     this.showGrid(2);
-    this.onSearchChange(this.searchText);
+    this.onSearchChange(this.searchText || '');
   }
 
   onSearchChange(searchValue: string) {
-
     if (this.displayResolver) {
-      
       this.filteredResults = this.resolverGroups.pipe(
         map(results =>
-          results.filter(grp => (grp.resolverGroupName && grp.resolverGroupName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
-            || (grp.resolverDescription && grp.resolverDescription.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
-            || (grp.contactName && grp.contactName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+          results.filter(
+            grp =>
+              (grp.resolverGroupName &&
+                grp.resolverGroupName
+                  .toLowerCase()
+                  .indexOf(searchValue.toLowerCase()) >= 0) ||
+              (grp.resolverDescription &&
+                grp.resolverDescription
+                  .toLowerCase()
+                  .indexOf(searchValue.toLowerCase()) >= 0) ||
+              (grp.contactName &&
+                grp.contactName
+                  .toLowerCase()
+                  .indexOf(searchValue.toLowerCase()) >= 0)
           )
         )
       );
     } else {
       this.filteredResults = this.applications.pipe(
         map(results =>
-          results.filter(app => (app.resolverGroupName && app.resolverGroupName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
-            || (app.appDescription && app.appDescription.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
-            || (app.appName && app.appName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
-            || (app.contactName && app.contactName.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+          results.filter(
+            app =>
+              (app.resolverGroupName &&
+                app.resolverGroupName
+                  .toLowerCase()
+                  .indexOf(searchValue.toLowerCase()) >= 0) ||
+              (app.appDescription &&
+                app.appDescription
+                  .toLowerCase()
+                  .indexOf(searchValue.toLowerCase()) >= 0) ||
+              (app.appName &&
+                app.appName.toLowerCase().indexOf(searchValue.toLowerCase()) >=
+                  0) ||
+              (app.contactName &&
+                app.contactName
+                  .toLowerCase()
+                  .indexOf(searchValue.toLowerCase()) >= 0)
           )
         )
       );
