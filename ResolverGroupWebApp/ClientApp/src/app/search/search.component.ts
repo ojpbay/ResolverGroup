@@ -5,6 +5,8 @@ import { Sort } from '@angular/material';
 import { IResolverGroup, IApplication } from './model';
 import { Observable } from 'rxjs';
 import { filter, map, debounceTime } from 'rxjs/operators';
+import { MatSort, MatTableDataSource } from '@angular/material';
+import { DataSource } from '@angular/cdk/table';
 
 @Component({
   selector: 'app-search',
@@ -18,6 +20,8 @@ export class SearchComponent implements OnInit {
   sortedData: Array<IResolverGroup>;
   displayResolver: boolean;
   searchText: string;
+  displayedColumns: string[] = ['resolverGroupName', 'resolverDescription', 'contactName'];
+  resolverDataSource: ResolverGroupDataSource;
 
   constructor(
     private resolverSearch: ResolverGroupSearchService,
@@ -30,6 +34,8 @@ export class SearchComponent implements OnInit {
     this.resolverGroups = this.resolverSearch.get();
     this.filteredResults = this.resolverGroups;
     this.applications = this.applicationSearch.get();
+
+    this.resolverDataSource =  new ResolverGroupDataSource(this.resolverSearch);
 
     this.displayResolver = true;
   }
@@ -119,6 +125,16 @@ export class SearchComponent implements OnInit {
       this.displayResolver = false;
     }
   }
+}
+
+export class ResolverGroupDataSource extends DataSource<any> {
+  constructor(private resolverGroupService: ResolverGroupSearchService) {
+    super();
+  }
+  connect(): Observable<IResolverGroup[]> {
+    return this.resolverGroupService.get();
+  }
+  disconnect() { }
 }
 
 function compare(a, b, isAsc) {

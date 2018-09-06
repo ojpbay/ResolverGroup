@@ -1,87 +1,85 @@
 
-
-<div class="form-group row">
-  <label for="buttonGroup" class="col-2 col-form-label">Type of search</label>
-  <div class="col-10">
-    <mat-button-toggle-group name="searchType" aria-label="Search Type" id="buttonGroup">
-      <mat-button-toggle value="1" (change)="showResolver()" [checked]="displayResolver">Resolver</mat-button-toggle>
-      <mat-button-toggle value="2" (change)="showApplication()" [checked]="!displayResolver">Application</mat-button-toggle>
-    </mat-button-toggle-group>
-  </div>
-</div>
-
-<div class="form-group row">
-  <label for="buttonGroup" class="col-2 col-form-label">Search query</label>
-  <div>
+  <div class="form-group row">
+    <label for="buttonGroup" class="col-2 col-form-label text-uppercase">Type of search</label>
     <div class="col-10">
-      <mat-form-field>
-        <input matInput type="search" placeholder="Search" id="searchText" (input)="onSearchChange($event.target.value)" [(ngModel)]="searchText" input-clear="black">
-        <span *ngIf="searchText" class="button" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''; onSearchChange('');">
-          <mat-icon>close</mat-icon>
-        </span>
-      </mat-form-field>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-
-    <div *ngIf="(filteredResults | async)?.length != null">
-      <span><span class="bold">{{(filteredResults | async)?.length}}</span> results found</span>
-
-      <mat-chip-list *ngIf="searchText">
-        <mat-chip color="primary">{{searchText}}</mat-chip>
-      </mat-chip-list>
-    </div>
+      <mat-button-toggle-group name="searchType" aria-label="Search Type" id="buttonGroup">
+        <mat-button-toggle value="1" (change)="showResolver()" [checked]="displayResolver">Resolver</mat-button-toggle>
+        <mat-button-toggle value="2" (change)="showApplication()" [checked]="!displayResolver">Application</mat-button-toggle>
+      </mat-button-toggle-group>
     </div>
   </div>
 
-<div class="row" *ngIf="displayResolver">
-  <div class="col-12">
-    <div class="table-responsive">
-      <table class="results table table-hover" matSort (matSortChange)="sortData($event)">
-        <thead class="thead-light">
-          <tr class="d-flex">
-            <th class="col-3" mat-sort-header="resolverGroupName">Resolver Group</th>
-            <th class="col-7" mat-sort-header="resolverDescription">Description</th>
-            <th class="col-2" mat-sort-header="contactName">Contact</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          <tr class="d-flex" *ngFor="let resolverGroup of filteredResults | async">
-            <td class="col-3">{{resolverGroup.resolverGroupName}}</td>
-            <td class="col-7">{{resolverGroup.resolverDescription}}</td>
-            <td class="col-2">{{resolverGroup.contactName}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    </div>
-  </div>
-
-    <div class="row" *ngIf="!displayResolver">
-      <div class="col-12">
-        <div class="table-responsive">
-          <table class="results table table-hover" matSort (matSortChange)="sortData($event)">
-            <thead class="thead-light">
-              <tr class="d-flex">
-                <th class="col-2" mat-sort-header="resolverGroupName">Resolver Group</th>
-                <th class="col-6" mat-sort-header="appDescription">Description</th>
-                <th class="col-2" mat-sort-header="appName">Application</th>
-                <th class="col-2" mat-sort-header="contactName">Contact</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="d-flex" *ngFor="let app of filteredResults | async">
-                <td class="col-2">{{app.resolverGroupName}}</td>
-                <td class="col-6">{{app.appDescription}}</td>
-                <td class="col-2">{{app.appName}}</td>
-                <td class="col-2">{{app.contactName}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+  <div class="form-group row">
+    <label for="buttonGroup" class="col-2 col-form-label text-uppercase">Search query</label>
+    <div>
+      <div class="col-10">
+        <mat-form-field>
+          <input matInput type="search" placeholder="Search" id="searchText" (input)="onSearchChange($event.target.value)" [(ngModel)]="searchText" input-clear="black">
+          <span *ngIf="searchText" class="button" matSuffix mat-icon-button aria-label="Clear" (click)="searchText=''; onSearchChange('');">
+            <mat-icon>close</mat-icon>
+          </span>
+        </mat-form-field>
       </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+
+      <div *ngIf="(filteredResults | async)?.length != null">
+        <span><span class="bold text-text-uppercase">{{(filteredResults | async)?.length}}</span> results found</span>
+
+        <mat-chip-list *ngIf="searchText">
+          <mat-chip color="primary">{{searchText}}</mat-chip>
+        </mat-chip-list>
       </div>
-   
+    </div>
+  </div>
+
+  <div class="row" *ngIf="displayResolver">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="results table table-hover">
+          <thead class="thead-light">
+            <tr class="d-flex">
+              <th class="col-3 text-uppercase">Resolver Group</th>
+              <th class="col-7 text-uppercase">Description</th>
+              <th class="col-2 text-uppercase">Contact</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="d-flex" *ngFor="let resolverGroup of filteredResults | async">
+              <td class="col-3">{{resolverGroup.resolverGroupName}}</td>
+              <td class="col-7">{{resolverGroup.resolverDescription}}</td>
+              <td class="col-2">{{resolverGroup.contactName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!displayResolver">
+    <div class="col-12">
+      <div class="table-responsive">
+        <table class="results table table-hover">
+          <thead class="thead-light">
+            <tr class="d-flex">
+              <th class="col-2 text-uppercase">Application</th>
+              <th class="col-6 text-uppercase">Description</th>
+              <th class="col-2 text-uppercase">Resolver Group</th>
+              <th class="col-2 text-uppercase">Contact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="d-flex" *ngFor="let app of filteredResults | async">
+              <td class="col-2">{{app.appName}}</td>
+              <td class="col-6">{{app.appDescription}}</td>
+              <td class="col-2">{{app.resolverGroupName}}</td>
+              <td class="col-2">{{app.contactName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
