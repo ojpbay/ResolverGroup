@@ -5,4 +5,11 @@
 body {
   font-family: Roboto, sans-serif;
   font-size: 13px;
+  padding-top: 80px;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    padding-top: 120px;
+  }
 }
