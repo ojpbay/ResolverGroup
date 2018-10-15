@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { PreloadAllModules, Routes, RouterModule } from '@angular/router';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
@@ -17,6 +18,18 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { SearchModule } from './search/search.module';
 import { FormsModule } from '@angular/forms';
+import { LayoutComponent } from './layout/layout/layout.component';
+import { SearchComponent } from './search/search.component';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: 'search' },
+      { path: 'search', component: SearchComponent }
+    ]
+  }];
 
 @NgModule({
   declarations: [AppComponent],
@@ -36,7 +49,8 @@ import { FormsModule } from '@angular/forms';
     MatChipsModule,
     LayoutModule,
     SearchModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   providers: [],
   bootstrap: [AppComponent]
